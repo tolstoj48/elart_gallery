@@ -37,7 +37,7 @@
   function toggleDetail() {
     if (window.matchMedia("(min-width: 600px)").matches) {
     let on = document.getElementById("detail");
-    let wrapper = document.getElementById("wrap");
+    let wrapper = document.getElementById("detail_img");
     if (on.style.display == "none") {
       let clone = this.childNodes[1].cloneNode(true);
       on.style.display = "block";
