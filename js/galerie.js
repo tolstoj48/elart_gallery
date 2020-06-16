@@ -1,5 +1,6 @@
 "use strict";
 
+//Main and single self-invoking function
 (function main() {
   function oneColumn() {
     for (let i = 0; i < document.getElementsByClassName("col").length; i++) {
@@ -28,6 +29,7 @@
     }
   }
 
+  //Setting the flag of active gallery after the category link clicked
   function setActiveGalleryAndButton(event) {
     document.getElementsByClassName("active_galerie")[0].classList.remove("active_galerie");
     event.target.classList.add("active_galerie");
@@ -43,6 +45,7 @@
     }
   }
 
+  //Switches detail view image backward or forward depending of the actual value of "where" parameter
   function switchImg(where) {
     let arrayAllImgs = document.querySelectorAll(".show img");
     let toBeReplacedImg = document.querySelector("#detail_img img");
@@ -64,6 +67,7 @@
     }
   }
 
+  //Adds all the controls to the detail view of the gallery, except for the close cross
   function addControlsGallery(wrapper, imgForGettingNumber) {
     let containerControls = document.createElement("div");
     let myButtonBack = document.createElement("div");
@@ -88,6 +92,7 @@
     wrapper.appendChild(containerControls);
   }
 
+  //Adds the toggling of the detail view of an image clicked in the gallery 
   function toggleDetail() {
     if (window.matchMedia("(min-width: 600px)").matches) {
     let detailImg = document.getElementById("detail");
@@ -110,15 +115,18 @@
   
   document.getElementById("close").addEventListener("click", toggleDetail);
 
+  //Adds event listener for adding flag of the chosen category on the category buttons in the gallery
   for (let i = 0; i < document.getElementsByClassName("btn_galerie_filter").length; i++) {
     document
       .getElementsByClassName("btn_galerie_filter")
       [i].addEventListener("click", setActiveGalleryAndButton);
   }
 
+  //Adds eventlistener to image containers for the detail view toggling
   let imgContainerArr = document.getElementsByClassName("img_container");
   for (let i = 0; i < imgContainerArr.length; i++) {
     let imgContainer = imgContainerArr[i];
     imgContainer.addEventListener("click", toggleDetail);
   }
 })();
+s
