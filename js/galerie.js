@@ -129,4 +129,3 @@
     imgContainer.addEventListener("click", toggleDetail);
   }
 })();
-s

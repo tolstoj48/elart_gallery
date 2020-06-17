@@ -1,0 +1,41 @@
+.text_container {
+  width: 90%;
+  padding: 2rem;
+  border: 1px solid rgba(117, 115, 117, 0.5);
+  color: rgb(90, 90, 90);
+  font-size: 0.8rem;
+}
+
+.center{
+  margin: 0 auto;
+}
+
+.tm_1 {
+  margin-top: 1rem;
+}
+
+.tm_2 {
+  margin-top: 2rem;
+}
+
+.tm_3 {
+  margin-top: 3rem;
+}
+
+@media only screen and (min-width: 600px) {
+  .text_container {
+    width: 60%;
+  }
+}
+
+@media only screen and (min-width: 992px) {
+  .text_container {
+    width: 50%;
+  }
+}
+
+@media only screen and (min-width: 1200px) {
+  .text_container {
+    width: 30%;
+  }
+}
