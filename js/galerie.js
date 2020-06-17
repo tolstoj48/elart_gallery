@@ -67,27 +67,48 @@
     }
   }
 
+  function createElement(elementTag, textContent, classesToAdd, listenersToAdd) {
+    let element = document.createElement(elementTag);
+    element.innerHTML = textContent;
+    for (let i = 0; i < classesToAdd.length; i ++) {
+      element.classList.add(classesToAdd[i]);
+    };
+    if (listenersToAdd.length){
+    element.addEventListener(listenersToAdd[0], listenersToAdd
+      [1]);
+    };
+    return element;
+  }
+
   //Adds all the controls to the detail view of the gallery, except for the close cross
   function addControlsGallery(wrapper, imgForGettingNumber) {
     let containerControls = document.createElement("div");
-    let myButtonBack = document.createElement("div");
-    let numberOfImg = document.createElement("div");
+    let myButtonBack;
+    let numberOfImg;
     let myButtonForward = document.createElement("div");
     let arrayAllImgs = document.querySelectorAll(".show img");
     let positionOfImg;
-    myButtonBack.innerHTML = "<";
-    myButtonBack.classList.add("window_gallery_btn");
-    myButtonBack.classList.add("pointer");
-    myButtonBack.addEventListener("click", function () {switchImg("back")});
-    containerControls.appendChild(myButtonBack);
+    myButtonBack = createElement(
+      "div", 
+      "<", 
+      ["window_gallery_btn", "pointer"],
+      ["click", function () {switchImg("back")}]
+    );
     positionOfImg = getIndexOfImg(imgForGettingNumber, arrayAllImgs);
-    numberOfImg.innerHTML = (positionOfImg + 1) + " / " + arrayAllImgs.length;
-    numberOfImg.classList.add("window_gallery_btn", "info");
+    numberOfImg = createElement(
+      "div", 
+      (positionOfImg + 1) + " / " + arrayAllImgs.length,
+      ["window_gallery_btn", "info"],
+      []
+      );
+    myButtonForward = createElement(
+      "div", 
+      ">",
+      ["window_gallery_btn", "pointer"],
+      ["click", function () {switchImg("forward")}]
+      );
+    containerControls.appendChild(myButtonBack);
     containerControls.appendChild(numberOfImg);
-    myButtonForward.innerHTML = ">";
-    myButtonForward.classList.add("window_gallery_btn");
-    myButtonForward.classList.add("pointer");
-    myButtonForward.addEventListener("click", function () {switchImg("forward")});
     containerControls.appendChild(myButtonForward);
     wrapper.appendChild(containerControls);
   }
