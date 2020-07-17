@@ -1,7 +1,7 @@
 "use strict";
 
 //Main and single self-invoking function
-(function main() {
+function mainGallery() {
   function oneColumn() {
     for (let i = 0; i < document.getElementsByClassName("col").length; i++) {
       let element = document.getElementsByClassName("col")[i];
@@ -149,4 +149,4 @@
     let imgContainer = imgContainerArr[i];
     imgContainer.addEventListener("click", toggleDetail);
   }
-})();
+};
