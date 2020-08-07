@@ -20,7 +20,7 @@ const UICTRL = (function() {
     <div class="my_row first_text_cont col-l-8 col-m-8">
       <span class="cover first_cover"> Galerie</span>
       <div class="title">
-        <h2><a href="">Tvorové</a></h2>
+        <h2><a href="#" class="galerie_link">Tvorové</a></h2>
         <div class="underline"></div>
       </div>
       Soubor tvorby znázorňující různé druhy tvorstva tohoto světa. Bytosti
@@ -34,7 +34,7 @@ const UICTRL = (function() {
     <div class="my_row second_text_cont col-l-8 col-m-8">
       <span class="cover second_cover"> Galerie</span>
       <div class="title">
-        <h2><a href="">Předměty</a></h2>
+        <h2><a href="#" class="galerie_link">Předměty</a></h2>
         <div class="underline"></div>
       </div>
       Každý předmět může být k něčemu dobrý. Některé jsou chutné, jinými se
@@ -66,7 +66,7 @@ const UICTRL = (function() {
     <div class="my_row third_text_cont col-l-8 col-m-8">
       <span class="cover second_cover"> Galerie</span>
       <div class="title">
-        <h2><a href="">Abstrakta</a></h2>
+        <h2><a href="#" class="galerie_link">Abstrakta</a></h2>
         <div class="underline"></div>
       </div>
       Když abstrahuji od konkrétního a zasním-li se, připadají mi věci kolem
@@ -233,12 +233,26 @@ const UICTRL = (function() {
         document.querySelector(".row").innerHTML = imagesURL;
         mainGallery();
     }
-  }
+  };
+
+  function resetControlers() {
+    document.querySelector("#index").addEventListener("click", UICTRL.switchPage);
+      document.querySelector("#about").addEventListener("click", UICTRL.switchPage);
+      Array.from(document.querySelectorAll(".complete_gallery")).forEach((element) => {
+        element.addEventListener("click", (e) => {
+          UICTRL.switchPage(e);
+          UICTRL.images(e)})});
+      Array.from(document.querySelectorAll(".galerie_link")).forEach((element) => {
+        element.addEventListener("click", (e) => {
+          UICTRL.switchPage(e);
+          UICTRL.images(e)})});
+  };
 
   return {
     init: function () {
       UISelectors.htmlContainer.innerHTML = htmlCode["index"];
-    },
+      resetControlers();
+      },
     switchPage: function(e) {
       const id = e.target.id;
       if (e.target.classList.contains("galerie_link")) {
@@ -247,20 +261,15 @@ const UICTRL = (function() {
         UISelectors.htmlContainer.innerHTML = htmlCode["complete_gallery"];
       } else {
         UISelectors.htmlContainer.innerHTML = htmlCode[id];
-      }},
+      }
+      resetControlers();
+    },
     images: function(e) {
       fetchImages(e.target.innerHTML);
+    },
+    resetControlers: function () {
+      resetControlers();
     }
 }})();
 
 window.addEventListener("DOMContentLoaded", UICTRL.init);
-document.querySelector("#index").addEventListener("click", UICTRL.switchPage);
-document.querySelector("#about").addEventListener("click", UICTRL.switchPage);
-Array.from(document.querySelectorAll(".complete_gallery")).forEach((element) => {
-  element.addEventListener("click", (e) => {
-    UICTRL.switchPage(e);
-    UICTRL.images(e)})});
-Array.from(document.querySelectorAll(".galerie_link")).forEach((element) => {
-  element.addEventListener("click", (e) => {
-    UICTRL.switchPage(e);
-    UICTRL.images(e)})});
