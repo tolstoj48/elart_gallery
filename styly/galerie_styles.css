@@ -69,8 +69,9 @@ img {
 .gallery_links_container ul {
   list-style-type: none;
   margin: 0 auto;
-  width:50%;
+  width:90%;
   background-attachment: red;
+  padding: 0 10px;
 }
 
 #gallery_name {
