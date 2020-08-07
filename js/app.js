@@ -7,7 +7,7 @@ const UICTRL = (function() {
   }
 
   const htmlCode = {
-    index: `<div class="my_container">
+    index: `<div class="my_container col-l-7">
     <div class="filler col-l-4 col-m-4 first_img_back">
       <div class="image_frame">
         <img
@@ -30,7 +30,7 @@ const UICTRL = (function() {
       </div>
     </div>
   </div>
-  <div class="my_container">
+  <div class="my_container col-l-7">
     <div class="my_row second_text_cont col-l-8 col-m-8">
       <span class="cover second_cover"> Galerie</span>
       <div class="title">
@@ -53,7 +53,7 @@ const UICTRL = (function() {
       </div>
     </div>
   </div>
-  <div class="my_container">
+  <div class="my_container  col-l-7">
     <div class="filler col-l-4 col-m-4 third_img_back">
       <div class="image_frame">
         <img
@@ -79,7 +79,7 @@ const UICTRL = (function() {
     `<div class="text_container center tm_3">
     <div class="tm_1">
       Kreslím i maluji. Ráno i odpoledne. Každý den je pro mě něčím novým. 
-      Poznávám svět. Jako každá a každý mého věku mě fascinují zmrzliny, balónky, 
+      Poznávám svět. Jako každou a každého mého věku mě fascinují sladkosti, balónky, 
       zvířátka a příroda i lidé kolem mě.
     </div>
     <div class="tm_3">
@@ -98,7 +98,13 @@ const UICTRL = (function() {
   </div>
   <div class="galerie_container">
     <div class="row">
-    </div>`
+    </div>`,
+    galerie_link: `
+    <div id="gallery_name"></div>
+    <div class="galerie_container">
+    <div class="row">
+    </div>
+    `
   }
 
   const images = [
@@ -111,14 +117,8 @@ const UICTRL = (function() {
     {
       class: "Předměty",
       src: "./foto/pages/abstracted_abstraction.jpg",
-      alt: "Abstracting",
+      alt: "Abstracted abstraction",
       name: "Abstrahovaná abstrakce"
-    },
-    {
-      class: "Abstrakta",
-      src: "./foto/pages/landscape_multilog.jpg",
-      alt: "Landscape multilog",
-      name: "Krajinný mnohorozhovor"
     },
     {
       class: "Tvorové",
@@ -127,7 +127,7 @@ const UICTRL = (function() {
       name: "Salátová Gomora"
     },
     {
-      class: "Tvorová",
+      class: "Tvorové",
       src: "./foto/pages/spider_smoke.jpg",
       alt: "Pavoučí zahradník",
       name: "Pavoučí zahradník"
@@ -182,41 +182,85 @@ const UICTRL = (function() {
     },
   ];
 
+  const fetchImages = function (id) {
+    let imagesURL =[];
+      if (id === "Předměty" || id === "Tvorové" || id === "Abstrakta") {
+        let galleryName = document.querySelector("#gallery_name");
+        images.forEach((image) => {
+          if (image.class === id) {
+            imagesURL += `
+            <div class="img_container show">
+            <img class="${image.class}" src="${image.src}" name="${image.name}" alt="${image.alt}">
+            <div class="middle">
+            <div class="magnify"><i class="fas fa-search"></i></div>
+            <div class="cover_text">${image.name}</div>
+            </div></div>`;
+          }})        
+        imagesURL += `<div id="detail">
+          <div id="wrap">
+           <div id="close">
+              &times zavřít
+            </div>
+            <div id="detail_img">
+              <div id="inner_img_wrapper">
+              </div>
+            </div>
+          </div>`;
+            document.querySelector(".row").innerHTML = imagesURL; 
+            galleryName.innerHTML = `${id}`;
+            galleryName.className = "btn_gallery_filter";
+            mainGallery();
+      } else {
+        images.forEach((image) => {
+        imagesURL += `
+        <div class="img_container show">
+        <img class="${image.class}" src="${image.src}" name="${image.name}" alt="${image.alt}">
+        <div class="middle">
+        <div class="magnify"><i class="fas fa-search"></i></div>
+        <div class="cover_text">${image.name}</div>
+        </div></div>`;
+        })
+        imagesURL += `<div id="detail">
+        <div id="wrap">
+          <div id="close">
+            &times zavřít
+          </div>
+          <div id="detail_img">
+            <div id="inner_img_wrapper">
+            </div>
+          </div>
+        </div>`;
+        document.querySelector(".row").innerHTML = imagesURL;
+        mainGallery();
+    }
+  }
+
   return {
     init: function () {
       UISelectors.htmlContainer.innerHTML = htmlCode["index"];
     },
     switchPage: function(e) {
       const id = e.target.id;
-      UISelectors.htmlContainer.innerHTML = htmlCode[id];
-      },
-    images: function() {
-      let imagesURL =[];
-      images.forEach((image) => {
-      imagesURL += `
-      <div class="img_container show">
-      <img class="${image.class}" src="${image.src}" alt="${image.alt}">
-      <div class="middle">
-      <div class="magnify"><i class="fas fa-search"></i></div>
-      <div class="cover_text">${image.name}</div>
-      </div></div>`;
-      })
-      imagesURL += `<div id="detail">
-      <div id="wrap">
-        <div id="close">
-          &times
-        </div>
-        <div id="detail_img">
-        </div>
-      </div>`;
-      document.querySelector(".row").innerHTML = imagesURL;
-      mainGallery();
+      if (e.target.classList.contains("galerie_link")) {
+        UISelectors.htmlContainer.innerHTML = htmlCode["galerie_link"];
+      } else if (e.target.classList.contains("complete_gallery")){
+        UISelectors.htmlContainer.innerHTML = htmlCode["complete_gallery"];
+      } else {
+        UISelectors.htmlContainer.innerHTML = htmlCode[id];
+      }},
+    images: function(e) {
+      fetchImages(e.target.innerHTML);
     }
 }})();
 
 window.addEventListener("DOMContentLoaded", UICTRL.init);
 document.querySelector("#index").addEventListener("click", UICTRL.switchPage);
 document.querySelector("#about").addEventListener("click", UICTRL.switchPage);
-document.querySelector("#complete_gallery").addEventListener("click", (e) => {
-  UICTRL.switchPage(e);
-  UICTRL.images()});
+Array.from(document.querySelectorAll(".complete_gallery")).forEach((element) => {
+  element.addEventListener("click", (e) => {
+    UICTRL.switchPage(e);
+    UICTRL.images(e)})});
+Array.from(document.querySelectorAll(".galerie_link")).forEach((element) => {
+  element.addEventListener("click", (e) => {
+    UICTRL.switchPage(e);
+    UICTRL.images(e)})});
