@@ -194,12 +194,9 @@ img {
 #close {
   cursor: pointer;
   height: 15px;
-  display: block;
-  padding-right: 2rem;
-  margin-right: 2rem;
   font-size: 1rem;
   color: white;
-  text-align: right;
+  margin: 1rem 2rem 0 auto;
 }
 
 #close:hover {

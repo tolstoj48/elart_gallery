@@ -89,7 +89,7 @@ const UICTRL = (function() {
     </div>`,
     complete_gallery: `<div class="gallery_links_container">
     <ul>
-      <li><div><a class="btn_galerie_filter active_galerie">Všechny kategorie</a></div></li>
+      <li><a class="btn_galerie_filter active_galerie">Všechny kategorie</a></li>
       <li><a class="btn_galerie_filter">Tvorové</a></li>
       <li><a class="btn_galerie_filter">Předměty</a></li>
       <li><a class="btn_galerie_filter">Abstrakta</a></li>
